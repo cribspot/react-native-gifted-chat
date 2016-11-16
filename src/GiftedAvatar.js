@@ -26,9 +26,17 @@ export default class GiftedAvatar extends React.Component {
       this.avatarName = '';
     }
 
-    let sumChars = 0;
-    for(let i = 0; i < userName.length; i++) {
-      sumChars += userName.charCodeAt(i);
+    let colorIndex = this.props.user._id;
+
+    // If it's a number then use it, otherwise fall back to hashing based on username.
+    // http://stackoverflow.com/a/1323325/763231
+    if (colorIndex % 1 !== 0) {
+      let sumChars = 0;
+      for (let i = 0; i < userName.length; i++) {
+        sumChars += userName.charCodeAt(i);
+      }
+
+      colorIndex = sumChars;
     }
 
     // inspired by https://github.com/wbinnssmith/react-user-avatar
@@ -43,7 +51,7 @@ export default class GiftedAvatar extends React.Component {
       '#2c3e50', // midnight blue
     ];
 
-    this.avatarColor = colors[sumChars % colors.length];
+    this.avatarColor = colors[colorIndex % colors.length];
   }
 
   renderAvatar() {
