@@ -11,6 +11,8 @@ export default class MessageImage extends React.Component {
   render() {
     const { width, height } = Dimensions.get('window');
 
+    const { onLoad, onError } = this.props.imageProps;
+
     return (
       <View style={[styles.container, this.props.containerStyle]}>
         <Lightbox
@@ -21,6 +23,8 @@ export default class MessageImage extends React.Component {
         >
           <Image
             {...this.props.imageProps}
+            onLoad={onLoad ? () => onLoad(this.props.currentMessage) : undefined}
+            onError={onError ? () => onError(this.props.currentMessage) : undefined}
             style={[styles.image, this.props.imageStyle]}
             source={{uri: this.props.currentMessage.image}}
           />
