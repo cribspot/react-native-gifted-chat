@@ -103,7 +103,7 @@ class GiftedChat extends React.Component {
   componentWillMount() {
     this.setIsMounted(true);
     this.initLocale();
-    this.initMessages(this.props.messages);
+    this.setMessages(this.props.messages || []);
   }
 
   componentWillUnmount() {
@@ -111,7 +111,14 @@ class GiftedChat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps = {}) {
-    this.initMessages(nextProps.messages);
+    const { messages, text: textProp } = nextProps;
+    const { text } = this.state;
+
+    this.setMessages(messages || []);
+
+    if (textProp !== undefined && textProp !== text) {
+      this.setState({ text: textProp });
+    }
   }
 
   initLocale() {
@@ -120,10 +127,6 @@ class GiftedChat extends React.Component {
     } else {
       this.setLocale(this.props.locale);
     }
-  }
-
-  initMessages(messages = []) {
-    this.setMessages(messages);
   }
 
   setLocale(locale) {
@@ -525,6 +528,7 @@ GiftedChat.defaultProps = {
 
 GiftedChat.propTypes = {
   messages: PropTypes.array,
+  text: PropTypes.string,
   messageIdGenerator: PropTypes.func,
   user: PropTypes.object,
   onSend: PropTypes.func,
