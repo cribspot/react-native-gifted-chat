@@ -395,7 +395,7 @@ class GiftedChat extends React.Component {
 
   notifyInputTextReset() {
     if (this.props.onInputTextChanged) {
-      this.props.onInputTextChanged('');
+      // this.props.onInputTextChanged('');
     }
   }
 
