@@ -67,10 +67,11 @@ export default class Actions extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: 26,
-    height: 26,
-    marginLeft: 10,
-    marginBottom: 10,
+    marginLeft: 2,
+    padding: 8,
+    paddingRight: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   wrapper: {
     borderRadius: 13,
